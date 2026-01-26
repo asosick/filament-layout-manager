@@ -3,6 +3,11 @@
 <div x-data="{ sortable: null }"
      x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('filament-layout-manager-styles', package:'asosick/filament-layout-manager'))]"
      x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('filament-layout-manager-scripts', package:'asosick/filament-layout-manager'))]"
+     x-init="
+        window.addEventListener('filament-layout-manager-scripts-loaded', () => {
+            if (window.CustomSortableModule) window.CustomSortableModule.initialize();
+        });
+    "
     >
     <div class="flex justify-between w-full gap-y-8 py-8">
         <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">

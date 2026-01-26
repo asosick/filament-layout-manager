@@ -25,6 +25,8 @@ const defaultOptions = {
     treeShaking: true,
     target: ['es2020'],
     minify: !isDev,
+    format: 'iife',
+    globalName: 'filamentLayoutManager',
     plugins: [{
         name: 'watchPlugin',
         setup: function (build) {
