@@ -1,65 +1,52 @@
-(function(window, document) {
-    'use strict';
+import Sortable from 'sortablejs';
+const CustomSortableModule = {
+    instance: null,
 
-    // Import Sortable from sortablejs
-    const Sortable = window.Sortable || require('sortablejs');
+    moveEndMorphMarker: function(el) {
+        const endMorphMarker = Array.from(el.childNodes).filter((childNode) => {
+            return childNode.nodeType === 8 && ['[if ENDBLOCK]><![endif]', '__ENDBLOCK__'].includes(childNode.nodeValue?.trim());
+        })[0];
 
-    // Module-specific variables with a unique namespace
-    const CustomSortableModule = {
-        instance: null,
+        if (endMorphMarker) {
+            el.appendChild(endMorphMarker);
+        }
+    },
 
-        moveEndMorphMarker: function(el) {
-            const endMorphMarker = Array.from(el.childNodes).filter((childNode) => {
-                return childNode.nodeType === 8 && ['[if ENDBLOCK]><![endif]', '__ENDBLOCK__'].includes(childNode.nodeValue?.trim());
-            })[0];
+    initialize: function() {
+        // Use a more specific selector to avoid conflicts
+        const grid = document.querySelector('[x-ref="grid"]');
 
-            if (endMorphMarker) {
-                el.appendChild(endMorphMarker);
-            }
-        },
+        if (!grid) return;
 
-        initialize: function() {
-            const grid = document.querySelector('[x-ref="grid"]');
-            if (grid) {
-                this.instance = new Sortable(grid, {
-                    animation: 150,
-                    handle: '.handle',
-                    ghostClass: 'opacity-50',
-                    onEnd: (evt) => {
-                        const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
-                        this.moveEndMorphMarker(grid);
-                        if (window.Livewire) {
-                            window.Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
-                        }
+        if (this.instance) {
+            this.instance.destroy();
+        }
+        if (grid && !this.instance) {
+            this.instance = new Sortable(grid, {
+                animation: 150,
+                handle: '.handle',
+                ghostClass: 'opacity-50',
+                onEnd: (evt) => {
+                    const orderedIds = Array.from(grid.children).map(el => el.dataset.id);
+                    this.moveEndMorphMarker(grid);
+                    if (window.Livewire) {
+                        window.Livewire.dispatch('updateLayout', { orderedIds: orderedIds });
                     }
-                });
-            }
-        },
-
-        destroy: function() {
-            if (this.instance) {
-                this.instance.destroy();
-                this.instance = null;
-            }
+                }
+            });
         }
-    };
+    },
 
-    // Initialize on load
-    CustomSortableModule.initialize();
-
-    // Reinitialize whenever Livewire re-renders
-    document.addEventListener('livewire:update', function() {
-        if (window.Livewire && window.Livewire.getByName('editMode')) {
-            CustomSortableModule.initialize();
-        } else {
-            CustomSortableModule.destroy();
+    destroy: function() {
+        if (this.instance) {
+            this.instance.destroy();
+            this.instance = null;
         }
-    });
+    }
+};
 
-    // Expose the module to the global scope if needed
-    window.CustomSortableModule = {
-        initialize: CustomSortableModule.initialize.bind(CustomSortableModule),
-        destroy: CustomSortableModule.destroy.bind(CustomSortableModule)
-    };
+document.addEventListener('livewire:navigated', () => CustomSortableModule.initialize());
+document.addEventListener('livewire:init', () => CustomSortableModule.initialize());
 
-})(window, document);
+window.CustomSortableModule = CustomSortableModule;
+CustomSortableModule.initialize();

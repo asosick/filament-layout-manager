@@ -42,12 +42,12 @@
 
 You can install the package via composer:
 
-#### Filament V4
+#### Filament V5 + Filament V4
 ```bash
-composer require asosick/filament-layout-manager:^2.0
+composer require asosick/filament-layout-manager:^2.1
 ```
 
-#### Filament V3
+#### Filament V3 - no longer supported
 ```bash
 composer require asosick/filament-layout-manager:^1.0
 ```
@@ -425,11 +425,6 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 - [August](https://github.com/asosick)
 - [All Contributors](../../contributors)
-
-## Open for work
-Enjoy this package and looking for a Laravel developer to join your team? Shoot me a message on [LinkedIn](https://www.linkedin.com/in/asosick/) or via email at [august@sosick.ca](mailto:august@sosick.ca)!
-
-I am based out of Toronto, Ontario, Canada, but I am open to all development opportunities, Laravel or otherwise!
 
 ## License
 
