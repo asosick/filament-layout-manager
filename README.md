@@ -42,12 +42,12 @@
 
 You can install the package via composer:
 
-#### Filament V4
+#### Filament V5 + Filament V4
 ```bash
-composer require asosick/filament-layout-manager:^2.0
+composer require asosick/filament-layout-manager:^2.1
 ```
 
-#### Filament V3
+#### Filament V3 - no longer supported
 ```bash
 composer require asosick/filament-layout-manager:^1.0
 ```
