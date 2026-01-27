@@ -4,12 +4,27 @@
 /* Layout Manager specific styles */
 .layout-manager-grid {
     transition: all 0.3s ease;
-    .md\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
-    .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-    .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-    .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
-    .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
-    .md\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+
+    --cols: 1;
+    @media (min-width: 768px) {
+        &[class*="md:grid-cols-"] {
+            grid-template-columns: repeat(var(--cols), minmax(0, 1fr)) !important;
+        }
+
+        /* Max columns for the grid is 12 (at least for the included styles)*/
+        &.md\:grid-cols-1 { --cols: 1; }
+        &.md\:grid-cols-2 { --cols: 2; }
+        &.md\:grid-cols-3 { --cols: 3; }
+        &.md\:grid-cols-4 { --cols: 4; }
+        &.md\:grid-cols-5 { --cols: 5; }
+        &.md\:grid-cols-6 { --cols: 6; }
+        &.md\:grid-cols-7 { --cols: 7; }
+        &.md\:grid-cols-8 { --cols: 8; }
+        &.md\:grid-cols-9 { --cols: 9; }
+        &.md\:grid-cols-10 { --cols: 10; }
+        &.md\:grid-cols-11 { --cols: 11; }
+        &.md\:grid-cols-12 { --cols: 12; }
+    }
 }
 
 .layout-manager-edit-controls button {
