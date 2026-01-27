@@ -117,6 +117,18 @@ class TestPage extends LayoutManagerPage
 ```
 You can now visit your page, unlock your layout, and begin reorganizing.
 
+### Grid columns
+You can specify the number of columns in your layout grid as so from inside your new custom page.
+
+```php
+protected function getGridColumns(): int
+{
+    return 6; // Max of 12
+}
+
+```
+The layout manager includes the required tailwind styles up to a grid size of 12.
+
 ### Passing Widget Data
 Similar to a traditional filament page, you are able to pass data directly to your widgets. (Support for passing data to custom components coming soon...)
 
