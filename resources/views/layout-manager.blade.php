@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="layout-manager-grid sm:grid block md:grid-cols-{{$columns}} gap-4" x-ref="grid">
+    <div class="layout-manager-grid grid md:grid-cols-{{$columns}} gap-4" x-ref="grid">
         @foreach($container[$this->currentLayout] ?? [] as $id => $component)
             <div wire:key="grid-item-{{ $id }}"
                  data-id="{{ $id }}"
